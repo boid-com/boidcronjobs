@@ -1,4 +1,5 @@
 #include <boidcronjobs.hpp>
+#include <functions.cpp>
 
 ACTION boidcronjobs::autoclaim(name user, uint32_t interval, bool cancel) {
 
@@ -6,6 +7,7 @@ ACTION boidcronjobs::autoclaim(name user, uint32_t interval, bool cancel) {
     //boid.cron or default exec account need to be able to call this to execute
     check(eosio::has_auth(user) || eosio::has_auth(name("croneosexec1")) || eosio::has_auth(get_self()), "missing required authority");
 
+    check(is_boid_user(user), "User not authorized to claim.");
     //can check here if user is really a boid user and not an arbitrary account
 
     if(cancel){
