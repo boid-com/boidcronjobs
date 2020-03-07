@@ -1,9 +1,7 @@
-# boidcomtoken
-Deployed on Kylin: token.boid
+# boidcronjobs
 
-Deployed on EOS Mainnet: boidcomtoken
+Deployed on EOS Mainnet: boidcronjobs
 
-Documentation available at https://docs.boid.com/docs/stake
 ## build Instructions
 
-eosio-cpp boidtoken.cpp -o ../boidtoken.wasm -abigen -I ../include -I ./ -O 2 -lto-opt O2
+eosio-cpp boidcronjobs.cpp -o ../boidcronjobs.wasm -abigen -I ../include -I ./ -O 2 -lto-opt O2
