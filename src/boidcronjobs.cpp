@@ -33,10 +33,10 @@ ACTION boidcronjobs::autoclaim(name user, uint32_t interval, bool cancel) {
     mycronjob.delay_sec = interval; // uint32_t
     mycronjob.expiration_sec = 60*60*1; // uint32_t
     mycronjob.gas_fee = extended_asset(asset(100000, symbol(symbol_code("BOID"), 4) ), name("boidcomtoken") ); //1 BOID
-    mycronjob.auto_pay_gas = true; //deposit gas fee for current job. (triggers a transfer)
+    mycronjob.auto_pay_gas = false; //deposit gas fee for current job. (triggers a transfer)
     // mycronjob.custom_exec_permissions ={permission_level{"boid.cron"_n, "active"_n} };
     //mycronjob.auth_bouncer = name("boidvalidators");
-    mycronjob.description ="Boid auto claim for user "+user.to_string();
+    mycronjob.description = "Boid auto claim for user "+user.to_string();
 
     //submit send the job
     mycronjob.schedule(

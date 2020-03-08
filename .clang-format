@@ -1,3 +1,6 @@
 BasedOnStyle: Google
 ColumnLimit: 200
 IndentWidth: 2
+AllowShortIfStatementsOnASingleLine: Always
+AllowShortBlocksOnASingleLine: Always
+AllowShortLoopsOnASingleLine: true
