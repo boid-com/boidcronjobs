@@ -1,0 +1,29 @@
+{
+  "name": "boidcronjobs",
+  "version": "1.0.0",
+  "description": "Deployed on EOS Mainnet: boidcronjobs",
+  "main": ".env.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "ava": "^3.4.0",
+    "boidjs": "^1.1.71",
+    "eosjs": "^20.0.3",
+    "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boid-com/boidcronjobs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/boid-com/boidcronjobs/issues"
+  },
+  "homepage": "https://github.com/boid-com/boidcronjobs#readme"
+}
