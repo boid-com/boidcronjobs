@@ -20,6 +20,38 @@
                     "type": "bool"
                 }
             ]
+        },
+        {
+            "name": "config",
+            "base": "",
+            "fields": [
+                {
+                    "name": "auto_claim",
+                    "type": "bool"
+                },
+                {
+                    "name": "r1",
+                    "type": "bool"
+                },
+                {
+                    "name": "r2",
+                    "type": "bool"
+                },
+                {
+                    "name": "r3",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "setconfig",
+            "base": "",
+            "fields": [
+                {
+                    "name": "conf",
+                    "type": "config"
+                }
+            ]
         }
     ],
     "actions": [
@@ -27,9 +59,22 @@
             "name": "autoclaim",
             "type": "autoclaim",
             "ricardian_contract": ""
+        },
+        {
+            "name": "setconfig",
+            "type": "setconfig",
+            "ricardian_contract": ""
         }
     ],
-    "tables": [],
+    "tables": [
+        {
+            "name": "config",
+            "type": "config",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
     "ricardian_clauses": [],
     "variants": []
 }

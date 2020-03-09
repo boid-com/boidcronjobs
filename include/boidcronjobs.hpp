@@ -1,4 +1,5 @@
 #include <eosio/eosio.hpp>
+#include <eosio/singleton.hpp>
 #include <croneos.hpp>
 
 using namespace std;
@@ -8,7 +9,18 @@ CONTRACT boidcronjobs : public contract {
   public:
     using contract::contract;
 
+    TABLE config {
+      bool auto_claim = true;
+      bool r1;
+      bool r2;
+      bool r3;
+    };
+    typedef eosio::singleton<"config"_n, config> config_table;
+
     ACTION autoclaim(name user, uint32_t interval, bool cancel);
+    ACTION setconfig(config conf);
+
+
 
 
   private:
@@ -28,6 +40,9 @@ CONTRACT boidcronjobs : public contract {
 
 
   bool is_boid_user(const name& user);
+  auto get_config();
+
+
 
 
 };

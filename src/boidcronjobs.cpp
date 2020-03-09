@@ -26,24 +26,33 @@ ACTION boidcronjobs::autoclaim(name user, uint32_t interval, bool cancel) {
         std::make_tuple(user, percentage_to_stake, issuer_claim)
     ).send();
 
-    //schedule config
-    croneos::job mycronjob;
-    mycronjob.owner = get_self();
-    mycronjob.tag = user;
-    mycronjob.delay_sec = interval; // uint32_t
-    mycronjob.expiration_sec = 60*60*1; // uint32_t
-    mycronjob.gas_fee = extended_asset(asset(100000, symbol(symbol_code("BOID"), 4) ), name("boidcomtoken") ); //1 BOID
-    mycronjob.auto_pay_gas = false; //deposit gas fee for current job. (triggers a transfer)
-    // mycronjob.custom_exec_permissions ={permission_level{"boid.cron"_n, "active"_n} };
-    //mycronjob.auth_bouncer = name("boidvalidators");
-    mycronjob.description = "Boid auto claim for user "+user.to_string();
 
-    //submit send the job
-    mycronjob.schedule(
-      name("boidcronjobs"), //contract that holds the to be scheduled action
-      name("autoclaim"), //its action name
-      make_tuple(user, interval, false ), //the action data
-      permission_level{get_self(), "active"_n} //authorization for scheduling NOT for execution of the scheduled job
-    );
+    if(get_config().auto_claim ){
+        //schedule config
+        croneos::job mycronjob;
+        mycronjob.owner = get_self();
+        mycronjob.tag = user;
+        mycronjob.delay_sec = interval; // uint32_t
+        mycronjob.expiration_sec = 60*60*1; // uint32_t
+        mycronjob.gas_fee = extended_asset(asset(100000, symbol(symbol_code("BOID"), 4) ), name("boidcomtoken") ); //1 BOID
+        mycronjob.auto_pay_gas = false; //deposit gas fee for current job. (triggers a transfer)
+        // mycronjob.custom_exec_permissions ={permission_level{"boid.cron"_n, "active"_n} };
+        //mycronjob.auth_bouncer = name("boidvalidators");
+        mycronjob.description = "Boid auto claim for user "+user.to_string();
 
+        //submit send the job
+        mycronjob.schedule(
+        name("boidcronjobs"), //contract that holds the to be scheduled action
+        name("autoclaim"), //its action name
+        make_tuple(user, interval, false ), //the action data
+        permission_level{get_self(), "active"_n} //authorization for scheduling NOT for execution of the scheduled job
+        );
+    }
+
+}
+
+ACTION boidcronjobs::setconfig(config conf){
+    require_auth(get_self() );
+    config_table _config(get_self(), get_self().value);
+    _config.set(conf, get_self());
 }
