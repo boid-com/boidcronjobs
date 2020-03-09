@@ -8,6 +8,6 @@ bool boidcronjobs::is_boid_user(const name& user) {
 
 auto boidcronjobs::get_config(){
   config_table _config(get_self(), get_self().value);
-  auto conf = _config.get();
+  auto conf = _config.get_or_create(get_self(), config());
   return conf;
 } 

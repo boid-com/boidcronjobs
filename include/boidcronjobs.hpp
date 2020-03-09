@@ -11,9 +11,9 @@ CONTRACT boidcronjobs : public contract {
 
     TABLE config {
       bool auto_claim = true;
-      bool r1;
-      bool r2;
-      bool r3;
+      bool r1 = false;
+      bool r2 = false;
+      bool r3 = false;
     };
     typedef eosio::singleton<"config"_n, config> config_table;
 
