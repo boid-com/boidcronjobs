@@ -16,8 +16,22 @@
                     "type": "uint32"
                 },
                 {
-                    "name": "cancel",
+                    "name": "gas_fee",
+                    "type": "extended_asset"
+                },
+                {
+                    "name": "registeronly",
                     "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "canceljob",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
                 }
             ]
         },
@@ -58,6 +72,11 @@
         {
             "name": "autoclaim",
             "type": "autoclaim",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "canceljob",
+            "type": "canceljob",
             "ricardian_contract": ""
         },
         {

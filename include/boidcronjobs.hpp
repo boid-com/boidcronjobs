@@ -17,11 +17,9 @@ CONTRACT boidcronjobs : public contract {
     };
     typedef eosio::singleton<"config"_n, config> config_table;
 
-    ACTION autoclaim(name user, uint32_t interval, bool cancel);
+    ACTION autoclaim(name user, uint32_t interval, extended_asset gas_fee ,bool registeronly );
     ACTION setconfig(config conf);
-
-
-
+    ACTION canceljob(name user);
 
   private:
 
@@ -41,8 +39,4 @@ CONTRACT boidcronjobs : public contract {
 
   bool is_boid_user(const name& user);
   auto get_config();
-
-
-
-
 };
