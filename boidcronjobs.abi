@@ -4,6 +4,46 @@
     "types": [],
     "structs": [
         {
+            "name": "addadjjob",
+            "base": "",
+            "fields": [
+                {
+                    "name": "new_adjustjob",
+                    "type": "adjustjob"
+                }
+            ]
+        },
+        {
+            "name": "adjustjob",
+            "base": "",
+            "fields": [
+                {
+                    "name": "action_name",
+                    "type": "name"
+                },
+                {
+                    "name": "start_value",
+                    "type": "float32"
+                },
+                {
+                    "name": "end_value",
+                    "type": "float32"
+                },
+                {
+                    "name": "start_time_ms",
+                    "type": "uint64"
+                },
+                {
+                    "name": "end_time_ms",
+                    "type": "uint64"
+                },
+                {
+                    "name": "last_update_time_ms",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "autoclaim",
             "base": "",
             "fields": [
@@ -58,6 +98,48 @@
             ]
         },
         {
+            "name": "contributors",
+            "base": "",
+            "fields": [
+                {
+                    "name": "account",
+                    "type": "name"
+                },
+                {
+                    "name": "donations",
+                    "type": "uint32"
+                },
+                {
+                    "name": "level",
+                    "type": "uint32"
+                },
+                {
+                    "name": "total_power_granted",
+                    "type": "uint32"
+                }
+            ]
+        },
+        {
+            "name": "deladjjob",
+            "base": "",
+            "fields": [
+                {
+                    "name": "action_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "execadjjob",
+            "base": "",
+            "fields": [
+                {
+                    "name": "action_name",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "setconfig",
             "base": "",
             "fields": [
@@ -70,6 +152,11 @@
     ],
     "actions": [
         {
+            "name": "addadjjob",
+            "type": "addadjjob",
+            "ricardian_contract": ""
+        },
+        {
             "name": "autoclaim",
             "type": "autoclaim",
             "ricardian_contract": ""
@@ -80,6 +167,16 @@
             "ricardian_contract": ""
         },
         {
+            "name": "deladjjob",
+            "type": "deladjjob",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "execadjjob",
+            "type": "execadjjob",
+            "ricardian_contract": ""
+        },
+        {
             "name": "setconfig",
             "type": "setconfig",
             "ricardian_contract": ""
@@ -87,8 +184,22 @@
     ],
     "tables": [
         {
+            "name": "adjustjobs",
+            "type": "adjustjob",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "config",
             "type": "config",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "contributors",
+            "type": "contributors",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

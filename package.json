@@ -10,6 +10,7 @@
     "ava": "^3.4.0",
     "boidjs": "^1.1.71",
     "eosjs": "^20.0.3",
+    "human-interval": "^1.0.0",
     "node-fetch": "^2.6.0"
   },
   "devDependencies": {},

@@ -48,11 +48,50 @@ ACTION boidcronjobs::autoclaim(name user, uint32_t interval, extended_asset gas_
         permission_level{get_self(), "active"_n} //authorization for scheduling NOT for execution of the scheduled job
         );
     }
-
 }
 
 ACTION boidcronjobs::setconfig(config conf){
     require_auth(get_self() );
     config_table _config(get_self(), get_self().value);
     _config.set(conf, get_self());
+}
+
+ACTION boidcronjobs::addadjjob(adjustjob new_adjustjob){
+  require_auth(get_self());
+  adjustjobs_table adjust_jobs(get_self(), get_self().value);
+  adjust_jobs.emplace(get_self(), [&](auto &row) {
+    row = new_adjustjob;
+  });
+}
+
+ACTION boidcronjobs::execadjjob(name action_name){
+  adjustjobs_table adjust_jobs(get_self(), get_self().value);
+  auto adjust_job = adjust_jobs.find(action_name.value);
+  check(adjust_job != adjust_jobs.end(),"Could not find adjust_job with this action_name");
+  print("now: ",now_ms,"\n");
+  print("start time: ",adjust_job->start_time_ms,"\n");
+  print("check:",adjust_job->start_time_ms > now_ms,"\n");
+  check(adjust_job->start_time_ms < now_ms,"This job has not started yet.");
+  if (adjust_job->last_update_time_ms != 0) check(uint64_t(now_ms - adjust_job->last_update_time_ms)>600000,"job was updated too recently");
+  float newValue;
+  bool clear_row = false;
+  if(now_ms > adjust_job->end_time_ms){ newValue = adjust_job->end_value; clear_row = true;}
+  else {newValue = convertRange(float(now_ms),float(adjust_job->start_time_ms),float(adjust_job->end_value),float(adjust_job->start_value),float(adjust_job->end_time_ms));}
+  print("newValue",newValue,"\n");
+
+  if (clear_row) adjust_jobs.erase(adjust_job);
+  else {
+    adjust_jobs.modify(adjust_job,get_self(),[&](auto &row){
+      row.last_update_time_ms = now_ms;
+    });
+  }
+  eosio::action(permission_level{name(TOKEN_CONTRACT), "updateparams"_n}, name(TOKEN_CONTRACT), adjust_job->action_name, std::make_tuple(newValue)).send();
+}
+
+ACTION boidcronjobs::deladjjob(name action_name){
+  require_auth(get_self());
+  adjustjobs_table adjust_jobs(get_self(), get_self().value);
+  auto adjust_job = adjust_jobs.find(action_name.value);
+  check(adjust_job != adjust_jobs.end(),"Could not find adjust_job with this action_name");
+  adjust_jobs.erase(adjust_job);
 }

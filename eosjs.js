@@ -3,7 +3,7 @@ const { JsSignatureProvider } = require('eosjs/dist/eosjs-jssig')
 const { TextDecoder, TextEncoder } = require('util')
 const env = require('./.env')
 function init(keys) {
-  if (!keys) keys = []
+  if (!keys) keys = env.keys[env.network]
   const signatureProvider = new JsSignatureProvider(keys)
   const fetch = require('node-fetch')
   var rpc = new JsonRpc(env.endpoints[env.network].rpc, { fetch })
