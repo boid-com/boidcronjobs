@@ -15,7 +15,7 @@ async function doAction(name,data){
 }
 
 async function addadjjob(data){
-  doAction('addadjjob',{
+  await doAction('addadjjob',{
     new_adjustjob:{
     param_name:"stake_difficulty",
     action_name:"setstakediff",
@@ -29,11 +29,11 @@ async function addadjjob(data){
 }
 
 async function execadjjob(action_name){
-  doAction('execadjjob',{action_name})
+  await doAction('execadjjob',{action_name})
 }
 
 async function deladjjob(action_name) {
-  doAction('deladjjob',{action_name})
+  await doAction('deladjjob',{action_name})
 }
 
 const methods = {addadjjob,execadjjob,deladjjob}
