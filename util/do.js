@@ -1,5 +1,5 @@
 const eosjs = require('../eosjs')()
-const tapos = { blocksBehind: 6, expireSeconds: 10 }
+const tapos = { blocksBehind: 6, expireSeconds: 60 }
 
 async function doAction(name,data){
   try {
